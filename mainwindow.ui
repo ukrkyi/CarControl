@@ -38,7 +38,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextBrowser" name="log"/>
+       <widget class="QTextBrowser" name="log">
+        <property name="acceptRichText">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

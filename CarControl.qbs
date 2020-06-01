@@ -16,6 +16,8 @@ QtApplication {
     ]
 
     files: [
+        "dataprocessor.cpp",
+        "dataprocessor.h",
         "main.cpp",
         "mainwindow.cpp",
         "mainwindow.h",

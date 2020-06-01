@@ -53,6 +53,8 @@ void MainWindow::connection_created()
 {
 	connection = server.nextPendingConnection();
 	server.pauseAccepting();
+	ui->area->clear();
+	ui->log->clear();
 	connect(connection, &QTcpSocket::disconnected, this, &MainWindow::disconnected);
 	connect(connection, &QTcpSocket::readyRead, this, &MainWindow::data_received);
 	ui->label->setStyleSheet("QLabel { background-color : SpringGreen;}");
@@ -77,8 +79,9 @@ void MainWindow::data_received()
 		if (line.startsWith("POS:")) {
 			QStringList data = line.remove("POS:").split(',');
 			ui->area->updatePosition(data[0].toFloat(), data[1].toFloat(), data[2].toFloat());
-			ui->area->update();
-		}
-		ui->log->append(data.chopped(1));
+		} else if (line.startsWith("DST:")) {
+			ui->area->newRange(line.remove("DST:").toFloat());
+		} else
+			ui->log->append(data.chopped(1)); // Log error
 	}
 }
